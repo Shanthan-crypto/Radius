@@ -49,7 +49,7 @@ public class CustomListAdapter extends ArrayAdapter<User> {
 
         TextView txtEmail = convertView.findViewById(R.id.email);
         txtEmail.setText(product.getEmail());
-
+        
 
         TextView txtAge = convertView.findViewById(R.id.age);
         txtAge.setText(product.getAge());
