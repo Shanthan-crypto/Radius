@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import static com.radius.userdisplay.R.layout.list_item;
 
 public class CustomListAdapter extends ArrayAdapter<User> {
     ArrayList<User> users;
@@ -31,32 +35,31 @@ public class CustomListAdapter extends ArrayAdapter<User> {
         if (convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater) getContext()
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_item, null, true);
+            convertView = layoutInflater.inflate(list_item, null, true);
 
         }
         User product = getItem(position);
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.thumbImage);
+        ImageView imageView = convertView.findViewById(R.id.thumbImage);
         Picasso.with(context).load(product.getImage()).into(imageView);
 
-        TextView txtName = (TextView) convertView.findViewById(R.id.name);
+        TextView txtName = convertView.findViewById(R.id.name);
         txtName.setText(product.getName());
 
 
-        TextView txtEmail = (TextView) convertView.findViewById(R.id.email);
+        TextView txtEmail = convertView.findViewById(R.id.email);
         txtEmail.setText(product.getEmail());
 
 
-        TextView txtAge = (TextView) convertView.findViewById(R.id.age);
+        TextView txtAge = convertView.findViewById(R.id.age);
         txtAge.setText(product.getAge());
 
 
-        TextView txtGender = (TextView) convertView.findViewById(R.id.gender);
+        TextView txtGender = convertView.findViewById(R.id.gender);
         txtGender.setText(product.getGender());
 
 
-        ImageView thumbnail = (ImageView) convertView.findViewById(R.id.thumbImage);
-        Picasso.with(context).load(product.getImage()).into(imageView);
+        MainActivity.progressDialog.hide();
 
         return convertView;
     }

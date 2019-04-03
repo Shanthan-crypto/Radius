@@ -1,9 +1,9 @@
 package com.radius.userdisplay;
+
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,10 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class fetchUser extends AsyncTask<Void,Void,Void> {
 
@@ -31,10 +28,10 @@ public class fetchUser extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        CustomListAdapter adapter = new CustomListAdapter(
-                context, R.layout.list_item, MainActivity.userArrayList
-        );
+        CustomListAdapter adapter = new CustomListAdapter(context,R.layout.list_item,
+                MainActivity.userArrayList);
 
+        
         MainActivity.userList.setAdapter(adapter);
     }
 
@@ -58,10 +55,10 @@ public class fetchUser extends AsyncTask<Void,Void,Void> {
             for (int i = 0; i < results.length(); i++) {
 
                 JSONObject c = results.getJSONObject(i);
-                System.out.println(results.getJSONObject(i));
-
+                //System.out.println(results.getJSONObject(i));
 
                 String gender = c.getString("gender");
+
                 String email = c.getString("email");
 
                 // Name node is JSON Object
@@ -73,14 +70,19 @@ public class fetchUser extends AsyncTask<Void,Void,Void> {
                 JSONObject dob = c.getJSONObject("dob");
                 String age = dob.getString("age");
 
-                JSONObject images = c.getJSONObject("picture");
-                String thumbnailURL = images.getString("thumbnail");
 
-                User u = new User(thumbnailURL,title+" "+first+" "+last,email,gender,age);
+                JSONObject images = c.getJSONObject("picture");
+                String thumbnailURL = images.getString("large");
+
+
+                User u=new User(thumbnailURL,title+" "+first+" "+last,email,gender,age);
+
+                // adding user to user list
 
                 MainActivity.userArrayList.add(u);
             }
 
+            //Toast.makeText(getContext(),"Successfully Fetched!!",Toast.LENGTH_SHORT).show();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
