@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     static public Button refreshBtn;
     static public ListView userList;
 
-    static public ArrayList<HashMap<String,String>> userArrayList;
+    static public ArrayList<User> userArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
